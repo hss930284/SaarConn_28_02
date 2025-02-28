@@ -231,44 +231,77 @@ def validate_excel(file_path):
 
         ### 🟢 Naming Convention Rule ('excel_rule_2') ###
 
-        """ 
+        """
         excel_rule_2 : Naming convention
             . this rule is applicable to following user given values             
-                in 	"swc_info" column "C",  column "D", column "E", column "H", column "I", and column "K"
-                in 	"ib_data" column "C"
-                in 	"ports" column "C",  column "E", column "F", and column "G"
-                in 	"adt_primitive" column "B",  column "D", column "G", and column "I"
-                in 	"adt_composite" column "C" and  column "D", , except for numbers in D column
-                in 	"idt" column "C",  and column "D" , , except for numbers in D column
+                in "swc_info" column "C",  column "D", column "E", column "H", column "I", and column "K"
+                in "ib_data" column "C"
+                in "ports" column "C",  column "E", column "F", and column "G"
+                in "adt_primitive" column "B",  column "D", column "G", and column "I"
+                in "adt_composite" column "C" and  column "D", , except for numbers in D column if corresponding B value is ARRAY or ARRAY_FIXED or ARRAY_VARIABLE
+                     handle combinely for IDT as well
+                in "idt" column "C",  and column "D" , , except for numbers in D column
             . first row of every sheet will be the header so the data for validation should be consider from second row of each above mentioned excel sheets.
             . the rule is 'the name can have small and capital alphabetical letters and numbers from 0 to 9 and no special characters except _ '            
-            . the name can start with only alphabetical which can be either capital or small letters 
+            . the name can start with only alphabetical which can be either capital or small letters
         """
-
+ 
         naming_sheets = {
-            "swc_info": ["C", "D", "E", "H", "I", "K"],
-            "ib_data": ["C"],
-            "ports": ["C", "E", "F", "G"],
-            "adt_primitive": ["B", "D", "G", "I"],
-            "adt_composite": ["C", "D"],
-            "idt": ["C", "D"]
+        "swc_info": ["C", "D", "E", "H", "I", "K"],
+        "ib_data": ["C"],
+        "ports": ["C", "E", "F", "G"],
+        "adt_primitive": ["B", "D", "G", "I"],
+        "adt_composite": ["B", "C", "D"],  # Added Column B for condition check
+        "idt": ["B", "C", "D"]  # Added Column B for condition check
         }
+ 
         for sheet_name, columns in naming_sheets.items():
             if sheet_name not in wb.sheetnames:
                 continue  # Skip if sheet doesn't exist
             sheet = wb[sheet_name]
-            for col in columns:
-                for row_idx, row in enumerate(sheet.iter_rows(
-                        min_row=2, min_col=ord(col.upper()) - 64, max_col=ord(col.upper()) - 64, values_only=True), start=2):
-                    name = row[0] if row else ""
-                    cell_ref = f"{col}{row_idx}"
-                    # Special handling for Column D in `adt_composite` and `idt`
+ 
+            for row_idx, row in enumerate(sheet.iter_rows(
+                    min_row=2, values_only=True), start=2):
+                
+                data = {col: row[ord(col.upper()) - 65] if row else "" for col in columns}
+ 
+                cell_ref_d = f"D{row_idx}"  # Column D reference
+ 
+                
+                # General Naming Convention Check for all other columns
+                for col in columns:
                     if col == "D" and sheet_name in ["adt_composite", "idt"]:
-                        if str(name).isdigit():  
-                            # Log as info if it's purely numeric
-                            errors["Info"].append(f"[{sheet_name}] Numeric value in naming column at {cell_ref}: {name}")
-                            continue  # Skip further validation
-                    # Apply normal naming convention check
+                        column_b_value = data.get("B", "")
+ 
+                        # Define valid values for column B that require column D to be numeric
+                        numeric_required_b_values = {
+                            "adt_composite": ["ARRAY"],
+                            "idt": ["ARRAY_FIXED", "ARRAY_VARIABLE"]
+                        }
+
+                        numeric_not_allowed_b_values = {
+                            "adt_composite" : ["RECORD"],
+                            "idt" : ["RECORD"]
+                        }
+ 
+                        #   Check if column D should be numeric
+                        if column_b_value in numeric_required_b_values.get(sheet_name, []):
+                            if not str(data.get("D", "")).isdigit():
+                                errors["Critical"].append(
+                                    f"[{sheet_name}] Column D must be numeric when Column B is '{column_b_value}' at D{row_idx}: {data.get('D')}"
+                                )
+                
+                        # Check if column D should NOT be numeric
+                        if column_b_value in numeric_not_allowed_b_values.get(sheet_name, []):
+                            if str(data.get("D", "")).isdigit():
+                                errors["Critical"].append(
+                                    f"[{sheet_name}] Column D must NOT be numeric when Column B is '{column_b_value}' at D{row_idx}: {data.get('D')}"
+                                )
+                        continue
+ 
+                    cell_ref = f"{col}{row_idx}"
+                    name = data.get(col, "")
+ 
                     if not re.match(r"^[A-Za-z][A-Za-z0-9_]*$", str(name)):
                         errors["Critical"].append(f"[{sheet_name}] Invalid name format at {cell_ref}: {name}")
 
@@ -580,6 +613,120 @@ def validate_excel(file_path):
                         errors["Critical"].append(f"Error in 'add_primitive' for Data Constraint: {const_name}, Cell L{row_idx}: Max value {max_value} out of range for {data_type}. Allowed: {min_allowed}-{max_allowed}")
                     if min_value > max_value:
                         errors["Critical"].append(f"Error in 'add_primitive' for Data Constraint: {const_name}, Row {row_idx}: Min value {min_value} should not be greater than Max value {max_value}")
+
+        """
+            RULE - 8
+                if sheet name = "adt_composite"
+                    column B == "ARRAY":
+                        1. then in corresponding column E only ["FIXED", "VARIABLE"] allowed
+                        2. in column F, value must comes from either of them
+                            enum_list : ["boolean", "ConstVoidPtr", "float32", "float64", "sint16", "sint16_least", "sint32", "sint32_least", "sint64", "sint8", "sint8_least", "uint16", "uint16_least", "uint32", "uint32_least", "uint64", "uint8", "uint8_least", "VoidPtr"]
+                            or values in column B in sheetname = "adt_primitive"
+                            or column C in sheetname="idt" if corresponding column B has value "PRIMITIVE"
+                    column B == "Record":
+                        1. then in corresponding column E only ["APDT", "ARDT", "AADT", "IDT"] allowed
+        """
+        naming_sheets = {
+            "adt_composite": ["B", "C", "D", "E", "F"],  # Ensure required columns are present
+            "adt_primitive": ["B"],
+            "idt": ["B", "C"]
+        }
+        
+        enum_list = [
+            "boolean", "ConstVoidPtr", "float32", "float64", "sint16", "sint16_least", "sint32",
+            "sint32_least", "sint64", "sint8", "sint8_least", "uint16", "uint16_least", "uint32",
+            "uint32_least", "uint64", "uint8", "uint8_least", "VoidPtr"
+        ]
+        
+        # Extract column B values from adt_primitive
+        adt_primitive_b_values = set()
+        if "adt_primitive" in wb.sheetnames:
+            adt_primitive_sheet = wb["adt_primitive"]
+            adt_primitive_b_values = {row[0] for row in adt_primitive_sheet.iter_rows(min_row=2, values_only=True) if row[0]}
+        
+        # Extract column C values from idt for all and where B = "PRIMITIVE" 
+        idt_primitive_c_values = set()
+        idt_c_values = set()
+        if "idt" in wb.sheetnames:
+            idt_sheet = wb["idt"]
+            idt_primitive_c_values = {row[1] for row in idt_sheet.iter_rows(min_row=2, values_only=True) if row[0] == "PRIMITIVE"}
+            idt_c_values = {row[1] for row in idt_sheet.iter_rows(min_row=2, values_only=True)}
+        #Extract column C values from idt
+        
+        # Extract column C values from adt_composite for "RECORD" and "ARRAY"
+        adt_composite_record_c_values = set()
+        adt_composite_array_c_values = set()
+        if "adt_composite" in wb.sheetnames:
+            adt_composite_sheet = wb["adt_composite"]
+            for row in adt_composite_sheet.iter_rows(min_row=2, values_only=True):
+                if row[0] == "RECORD":
+                    adt_composite_record_c_values.add(row[1])
+                elif row[0] == "ARRAY":
+                    adt_composite_array_c_values.add(row[1])
+        
+        for sheet_name, columns in naming_sheets.items():
+            if sheet_name not in wb.sheetnames:
+                continue  # Skip if sheet doesn't exist
+        
+            sheet = wb[sheet_name]
+            merged_cells = get_merged_cells(sheet)  # Get merged cells info
+        
+            for row_idx, row in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
+                data = {col: row[ord(col.upper()) - 65] if row else "" for col in columns}
+        
+                # Handle merged cells for column B
+                for merged_start, merged_group in merged_cells.items():
+                    merged_col, merged_row = re.match(r"([A-Z]+)(\d+)", merged_start).groups()
+                    if merged_col == "B" and str(row_idx) in [merged_row] + [cell[1:] for cell in merged_group]:
+                        data["B"] = sheet[merged_start].value  # Assign merged cell value
+        
+                # Rule for "ARRAY" in column B
+                if data.get("B") == "ARRAY":
+                    cell_ref_e = f"E{row_idx}"
+                    cell_ref_f = f"F{row_idx}"
+        
+                    if data.get("E") not in ["FIXED", "VARIABLE"]:
+                        errors["Critical"].append(f"[{sheet_name}] Column E must be 'FIXED' or 'VARIABLE' when Column B is ARRAY at {cell_ref_e}: {data.get('E')}")
+        
+                    if data.get("F") not in enum_list and data.get("F") not in adt_primitive_b_values and data.get("F") not in idt_primitive_c_values:
+                        errors["Critical"].append(f"[{sheet_name}] Column F must be from enum_list, adt_primitive (Column B), or idt (Column C when B='PRIMITIVE') at {cell_ref_f}: {data.get('F')}")
+        
+                # Rule for "RECORD" in column B
+                if data.get("B") == "RECORD":
+                    cell_ref_e = f"E{row_idx}"
+                    cell_ref_f = f"F{row_idx}"
+        
+                    if data.get("E") not in ["APDT", "ARDT", "AADT", "IDT"]:
+                        errors["Critical"].append(f"[{sheet_name}] Column E must be 'APDT', 'ARDT', 'AADT', or 'IDT' when Column B is RECORD at {cell_ref_e}: {data.get('E')}")
+        
+                    # Handling Column F values based on Column E
+                    if data.get("E") == "APDT":
+                        if data.get("F") not in adt_primitive_b_values:
+                            errors["Critical"].append(
+                                f"[{sheet_name}] Column F must be from Column B of adt_primitive when Column E is APDT at {cell_ref_f}: {data.get('F')}"
+                            )
+        
+                    elif data.get("E") == "ARDT":
+                        valid_ardt_values = adt_composite_record_c_values - {data.get("F")}
+                        if data.get("F") not in valid_ardt_values:
+                            errors["Critical"].append(
+                                f"[{sheet_name}] Column F must be from Column C of adt_composite where Column B is RECORD, excluding itself at {cell_ref_f}: {data.get('F')}"
+                            )
+        
+                    elif data.get("E") == "AADT":
+                        valid_aadt_values = adt_composite_array_c_values - {data.get("F")}
+                        if data.get("F") not in valid_aadt_values:
+                            errors["Critical"].append(
+                                f"[{sheet_name}] Column F must be from Column C of adt_composite where Column B is ARRAY, excluding itself at {cell_ref_f}: {data.get('F')}"
+                            )
+        
+                    elif data.get("E") == "IDT":
+                        valid_idt_values = enum_list + list(idt_c_values - {data.get("F")})
+                        if data.get("F") not in valid_idt_values:
+                            errors["Critical"].append(
+                                f"[{sheet_name}] Column F must be from enum_list or Column C of idt, excluding itself at {cell_ref_f}: {data.get('F')}"
+                            )
+
     except Exception as e:
         errors["Critical"].append(f"Error reading Excel file: {str(e)}")
     return errors
