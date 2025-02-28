@@ -1,0 +1,37 @@
+Line 4466 (New File): </IMPLEMENTATION-DATA-TYPE>
+-------------------------
+Line 4467 (New File): <IMPLEMENTATION-DATA-TYPE >
+-------------------------
+Line 4468 (New File): <SHORT-NAME>array3</SHORT-NAME>
+-------------------------
+Line 4469 (New File): <CATEGORY>ARRAY</CATEGORY>
+-------------------------
+Line 4470 (New File): <SUB-ELEMENTS>
+-------------------------
+Line 4471 (New File): <IMPLEMENTATION-DATA-TYPE-ELEMENT >
+-------------------------
+Line 4472 (New File): <SHORT-NAME>SubElement</SHORT-NAME>
+-------------------------
+Line 4473 (New File): <CATEGORY>TYPE_REFERENCE</CATEGORY>
+-------------------------
+Line 4474 (New File): <ARRAY-SIZE>10</ARRAY-SIZE>
+-------------------------
+Line 4475 (New File): <ARRAY-SIZE-SEMANTICS>FIXED-SIZE</ARRAY-SIZE-SEMANTICS>
+-------------------------
+Line 4476 (New File): <SW-DATA-DEF-PROPS>
+-------------------------
+Line 4477 (New File): <SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 4478 (New File): <SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 4479 (New File): <IMPLEMENTATION-DATA-TYPE-REF DEST="IMPLEMENTATION-DATA-TYPE">/AUTOSAR/AUTOSAR_Platform/ImplementationDataTypes/float32</IMPLEMENTATION-DATA-TYPE-REF>
+-------------------------
+Line 4480 (New File): </SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 4481 (New File): </SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 4482 (New File): </SW-DATA-DEF-PROPS>
+-------------------------
+Line 4483 (New File): </IMPLEMENTATION-DATA-TYPE-ELEMENT>
+-------------------------
+Line 4484 (New File): </SUB-ELEMENTS>

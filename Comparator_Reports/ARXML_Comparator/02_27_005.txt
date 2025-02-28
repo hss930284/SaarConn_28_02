@@ -1,0 +1,39 @@
+Line 4791 (New File): <TRIGGER-PERIOD>
+-------------------------
+Line 4792 (New File): <CSE-CODE>tin</CSE-CODE>
+-------------------------
+Line 4793 (New File): <CSE-CODE-FACTOR>char</CSE-CODE-FACTOR>
+-------------------------
+Line 4794 (New File): </TRIGGER-PERIOD>
+-------------------------
+Line 4795 (New File): </TRIGGER>
+-------------------------
+Line 4796 (New File): </TRIGGERS>
+-------------------------
+Line 4797 (New File): </TRIGGER-INTERFACE>
+-------------------------
+Line 4798 (New File): <TRIGGER-INTERFACE >
+-------------------------
+Line 4799 (New File): <SHORT-NAME>Trigger_Send</SHORT-NAME>
+-------------------------
+Line 4800 (New File): <IS-SERVICE>false</IS-SERVICE>
+-------------------------
+Line 4801 (New File): <TRIGGERS>
+-------------------------
+Line 4802 (New File): <TRIGGER >
+-------------------------
+Line 4803 (New File): <SHORT-NAME>Trigg3</SHORT-NAME>
+-------------------------
+Line 4804 (New File): <TRIGGER-PERIOD>
+-------------------------
+Line 4805 (New File): <CSE-CODE>ek</CSE-CODE>
+-------------------------
+Line 4806 (New File): <CSE-CODE-FACTOR>don</CSE-CODE-FACTOR>
+-------------------------
+Line 4807 (New File): </TRIGGER-PERIOD>
+-------------------------
+Line 4808 (New File): </TRIGGER>
+-------------------------
+Line 4809 (New File): <TRIGGER >
+-------------------------
+Line 4810 (New File): <SHORT-NAME>Trigg4</SHORT-NAME>

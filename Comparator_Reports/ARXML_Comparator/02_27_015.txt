@@ -1,0 +1,131 @@
+Line 3998 (New File): <APPLICATION-PRIMITIVE-DATA-TYPE >
+-------------------------
+Line 3999 (New File): <SHORT-NAME>float32</SHORT-NAME>
+-------------------------
+Line 4000 (New File): <CATEGORY>VALUE</CATEGORY>
+-------------------------
+Line 4001 (New File): <SW-DATA-DEF-PROPS>
+-------------------------
+Line 4002 (New File): <SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 4003 (New File): <SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 4004 (New File): <SW-CALIBRATION-ACCESS>NOT-ACCESSIBLE</SW-CALIBRATION-ACCESS>
+-------------------------
+Line 4005 (New File): <COMPU-METHOD-REF DEST="COMPU-METHOD">/SharedElements/CompuMethods/newCompNameSWC</COMPU-METHOD-REF>
+-------------------------
+Line 4006 (New File): <DATA-CONSTR-REF DEST="DATA-CONSTR">/SharedElements/DataConstr/DataConst_newCompNameSWC</DATA-CONSTR-REF>
+-------------------------
+Line 4007 (New File): <UNIT-REF DEST="UNIT">/AUTOSAR/AUTOSAR_PhysicalUnits/Units/NoUnit</UNIT-REF>
+-------------------------
+Line 4008 (New File): </SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 4009 (New File): </SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 4010 (New File): </SW-DATA-DEF-PROPS>
+-------------------------
+Line 4011 (New File): </APPLICATION-PRIMITIVE-DATA-TYPE>
+-------------------------
+Line 4142 (New File): </COMPU-CONST>
+-------------------------
+Line 4143 (New File): </COMPU-SCALE>
+-------------------------
+Line 4144 (New File): </COMPU-SCALES>
+-------------------------
+Line 4145 (New File): <COMPU-DEFAULT-VALUE>
+-------------------------
+Line 4146 (New File): <V>0</V>
+-------------------------
+Line 4147 (New File): </COMPU-DEFAULT-VALUE>
+-------------------------
+Line 4148 (New File): </COMPU-INTERNAL-TO-PHYS>
+-------------------------
+Line 4149 (New File): </COMPU-METHOD>
+-------------------------
+Line 4150 (New File): <COMPU-METHOD >
+-------------------------
+Line 4151 (New File): <SHORT-NAME>newCompNameSWC</SHORT-NAME>
+-------------------------
+Line 4152 (New File): <CATEGORY>TEXTTABLE</CATEGORY>
+-------------------------
+Line 4153 (New File): <UNIT-REF DEST="UNIT">/AUTOSAR/AUTOSAR_PhysicalUnits/Units/NoUnit</UNIT-REF>
+-------------------------
+Line 4154 (New File): <COMPU-INTERNAL-TO-PHYS>
+-------------------------
+Line 4155 (New File): <COMPU-SCALES>
+-------------------------
+Line 4156 (New File): <COMPU-SCALE>
+-------------------------
+Line 4157 (New File): <LOWER-LIMIT>8</LOWER-LIMIT>
+-------------------------
+Line 4158 (New File): <UPPER-LIMIT>8</UPPER-LIMIT>
+-------------------------
+Line 4159 (New File): <COMPU-CONST>
+-------------------------
+Line 4160 (New File): <VT>ENUM_newCompNameSWC</VT>
+-------------------------
+Line 4314 (New File): <DATA-CONSTR >
+-------------------------
+Line 4315 (New File): <SHORT-NAME>DataConst_newCompNameSWC</SHORT-NAME>
+-------------------------
+Line 4316 (New File): <DATA-CONSTR-RULES>
+-------------------------
+Line 4317 (New File): <DATA-CONSTR-RULE>
+-------------------------
+Line 4318 (New File): <PHYS-CONSTRS>
+-------------------------
+Line 4319 (New File): <LOWER-LIMIT>0</LOWER-LIMIT>
+-------------------------
+Line 4320 (New File): <UPPER-LIMIT>10</UPPER-LIMIT>
+-------------------------
+Line 4321 (New File): </PHYS-CONSTRS>
+-------------------------
+Line 4322 (New File): </DATA-CONSTR-RULE>
+-------------------------
+Line 4323 (New File): </DATA-CONSTR-RULES>
+-------------------------
+Line 4324 (New File): </DATA-CONSTR>
+-------------------------
+Line 4380 (New File): </DATA-TYPE-MAP>
+-------------------------
+Line 4381 (New File): <DATA-TYPE-MAP>
+-------------------------
+Line 4382 (New File): <APPLICATION-DATA-TYPE-REF DEST="APPLICATION-ARRAY-DATA-TYPE">/SharedElements/ApplicationDataTypes/Array/float32</APPLICATION-DATA-TYPE-REF>
+-------------------------
+Line 4383 (New File): <IMPLEMENTATION-DATA-TYPE-REF DEST="IMPLEMENTATION-DATA-TYPE">/SharedElements/ImplementationDataTypes/float32</IMPLEMENTATION-DATA-TYPE-REF>
+-------------------------
+Line 5034 (New File): </NUMERICAL-VALUE-SPECIFICATION>
+-------------------------
+Line 5035 (New File): </INIT-VALUE>
+-------------------------
+Line 5036 (New File): </VARIABLE-DATA-PROTOTYPE>
+-------------------------
+Line 5037 (New File): <VARIABLE-DATA-PROTOTYPE >
+-------------------------
+Line 5038 (New File): <SHORT-NAME>PIP_test8</SHORT-NAME>
+-------------------------
+Line 5039 (New File): <SW-DATA-DEF-PROPS>
+-------------------------
+Line 5040 (New File): <SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 5041 (New File): <SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 5042 (New File): <SW-CALIBRATION-ACCESS>READ</SW-CALIBRATION-ACCESS>
+-------------------------
+Line 5043 (New File): <SW-IMPL-POLICY>QUEUED</SW-IMPL-POLICY>
+-------------------------
+Line 5044 (New File): </SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 5045 (New File): </SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 5046 (New File): </SW-DATA-DEF-PROPS>
+-------------------------
+Line 5047 (New File): <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/AUTOSAR/AUTOSAR_Platform/ImplementationDataTypes/float32</TYPE-TREF>
+-------------------------
+Line 5048 (New File): <INIT-VALUE>
+-------------------------
+Line 5049 (New File): <NUMERICAL-VALUE-SPECIFICATION>
+-------------------------
+Line 5050 (New File): <SHORT-LABEL>Value</SHORT-LABEL>
+-------------------------
+Line 5051 (New File): <VALUE>0</VALUE>

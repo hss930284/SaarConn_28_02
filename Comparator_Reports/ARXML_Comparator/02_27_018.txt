@@ -1,0 +1,29 @@
+Line 3916 (Old File): <SHORT-NAME>array1</SHORT-NAME>
+Line 3917 (Old File): <CATEGORY>ARRAY</CATEGORY>
+Line 3918 (Old File): <ELEMENT >
+Line 3919 (Old File): <SHORT-NAME>Element</SHORT-NAME>
+Line 3920 (Old File): <CATEGORY>VALUE</CATEGORY>
+Line 3921 (Old File): <TYPE-TREF DEST="APPLICATION-PRIMITIVE-DATA-TYPE">/SharedElements/ApplicationDataTypes/Primitive/uint8</TYPE-TREF>
+Line 3922 (Old File): <ARRAY-SIZE-SEMANTICS>FIXED-SIZE</ARRAY-SIZE-SEMANTICS>
+Line 3923 (Old File): <MAX-NUMBER-OF-ELEMENTS>15</MAX-NUMBER-OF-ELEMENTS>
+Line 3924 (Old File): </ELEMENT>
+Line 3925 (Old File): </APPLICATION-ARRAY-DATA-TYPE>
+Line 3926 (Old File): <APPLICATION-ARRAY-DATA-TYPE >
+Line 3934 (Old File): <MAX-NUMBER-OF-ELEMENTS>15</MAX-NUMBER-OF-ELEMENTS>
+Line 3923 (New File): <MAX-NUMBER-OF-ELEMENTS>16</MAX-NUMBER-OF-ELEMENTS>
+-------------------------
+Line 4340 (New File): <IMPLEMENTATION-DATA-TYPE-REF DEST="IMPLEMENTATION-DATA-TYPE">/SharedElements/ImplementationDataTypes/None</IMPLEMENTATION-DATA-TYPE-REF>
+-------------------------
+Line 4341 (New File): </DATA-TYPE-MAP>
+-------------------------
+Line 4342 (New File): <DATA-TYPE-MAP>
+-------------------------
+Line 4343 (New File): <APPLICATION-DATA-TYPE-REF DEST="APPLICATION-ARRAY-DATA-TYPE">/SharedElements/ApplicationDataTypes/Array/ARRAY</APPLICATION-DATA-TYPE-REF>
+-------------------------
+Line 4344 (New File): <IMPLEMENTATION-DATA-TYPE-REF DEST="IMPLEMENTATION-DATA-TYPE">/SharedElements/ImplementationDataTypes/None</IMPLEMENTATION-DATA-TYPE-REF>
+-------------------------
+Line 4345 (New File): </DATA-TYPE-MAP>
+-------------------------
+Line 4346 (New File): <DATA-TYPE-MAP>
+-------------------------
+Line 4347 (New File): <APPLICATION-DATA-TYPE-REF DEST="APPLICATION-ARRAY-DATA-TYPE">/SharedElements/ApplicationDataTypes/Array/ARRAY</APPLICATION-DATA-TYPE-REF>

@@ -1,0 +1,47 @@
+Line 5268 (New File): <SHORT-NAME>SCPVA_PIP_test0</SHORT-NAME>
+-------------------------
+Line 5269 (New File): <ACCESSED-PARAMETER>
+-------------------------
+Line 5270 (New File): <LOCAL-PARAMETER-REF DEST="PARAMETER-DATA-PROTOTYPE">/SwComponentTypes/ApplSWC/Asw_swc/IB_Asw_swc/PIP_test0</LOCAL-PARAMETER-REF>
+-------------------------
+Line 5271 (New File): </ACCESSED-PARAMETER>
+-------------------------
+Line 5272 (New File): </PARAMETER-ACCESS>
+-------------------------
+Line 5273 (New File): <PARAMETER-ACCESS >
+-------------------------
+Line 5333 (New File): </NUMERICAL-VALUE-SPECIFICATION>
+-------------------------
+Line 5334 (New File): </INIT-VALUE>
+-------------------------
+Line 5335 (New File): </PARAMETER-DATA-PROTOTYPE>
+-------------------------
+Line 5336 (New File): <PARAMETER-DATA-PROTOTYPE >
+-------------------------
+Line 5337 (New File): <SHORT-NAME>PIP_test0</SHORT-NAME>
+-------------------------
+Line 5338 (New File): <SW-DATA-DEF-PROPS>
+-------------------------
+Line 5339 (New File): <SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 5340 (New File): <SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 5341 (New File): <SW-CALIBRATION-ACCESS>READ</SW-CALIBRATION-ACCESS>
+-------------------------
+Line 5342 (New File): <SW-IMPL-POLICY>FIXED</SW-IMPL-POLICY>
+-------------------------
+Line 5343 (New File): </SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 5344 (New File): </SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 5345 (New File): </SW-DATA-DEF-PROPS>
+-------------------------
+Line 5346 (New File): <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/AUTOSAR/AUTOSAR_Platform/ImplementationDataTypes/uint16</TYPE-TREF>
+-------------------------
+Line 5347 (New File): <INIT-VALUE>
+-------------------------
+Line 5348 (New File): <NUMERICAL-VALUE-SPECIFICATION>
+-------------------------
+Line 5349 (New File): <SHORT-LABEL>Value</SHORT-LABEL>
+-------------------------
+Line 5350 (New File): <VALUE>231</VALUE>

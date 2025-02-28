@@ -1,0 +1,35 @@
+Line 4986 (New File): </NUMERICAL-VALUE-SPECIFICATION>
+-------------------------
+Line 4987 (New File): </INIT-VALUE>
+-------------------------
+Line 4988 (New File): </VARIABLE-DATA-PROTOTYPE>
+-------------------------
+Line 4989 (New File): <VARIABLE-DATA-PROTOTYPE >
+-------------------------
+Line 4990 (New File): <SHORT-NAME>PIP_test8</SHORT-NAME>
+-------------------------
+Line 4991 (New File): <SW-DATA-DEF-PROPS>
+-------------------------
+Line 4992 (New File): <SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 4993 (New File): <SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 4994 (New File): <SW-CALIBRATION-ACCESS>READ</SW-CALIBRATION-ACCESS>
+-------------------------
+Line 4995 (New File): <SW-IMPL-POLICY>QUEUED</SW-IMPL-POLICY>
+-------------------------
+Line 4996 (New File): </SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 4997 (New File): </SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 4998 (New File): </SW-DATA-DEF-PROPS>
+-------------------------
+Line 4999 (New File): <TYPE-TREF DEST="IMPLEMENTATION-DATA-TYPE">/AUTOSAR/AUTOSAR_Platform/ImplementationDataTypes/uint16</TYPE-TREF>
+-------------------------
+Line 5000 (New File): <INIT-VALUE>
+-------------------------
+Line 5001 (New File): <NUMERICAL-VALUE-SPECIFICATION>
+-------------------------
+Line 5002 (New File): <SHORT-LABEL>Value</SHORT-LABEL>
+-------------------------
+Line 5003 (New File): <VALUE>0</VALUE>

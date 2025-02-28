@@ -1,0 +1,91 @@
+Line 4361 (New File): <DATA-TYPE-MAP>
+-------------------------
+Line 4362 (New File): <APPLICATION-DATA-TYPE-REF DEST="APPLICATION-ARRAY-DATA-TYPE">/SharedElements/ApplicationDataTypes/Array/ARRAY</APPLICATION-DATA-TYPE-REF>
+-------------------------
+Line 4363 (New File): <IMPLEMENTATION-DATA-TYPE-REF DEST="IMPLEMENTATION-DATA-TYPE">/SharedElements/ImplementationDataTypes/None</IMPLEMENTATION-DATA-TYPE-REF>
+-------------------------
+Line 4364 (New File): </DATA-TYPE-MAP>
+-------------------------
+Line 4365 (New File): <DATA-TYPE-MAP>
+-------------------------
+Line 4366 (New File): <APPLICATION-DATA-TYPE-REF DEST="APPLICATION-ARRAY-DATA-TYPE">/SharedElements/ApplicationDataTypes/Array/ARRAY</APPLICATION-DATA-TYPE-REF>
+-------------------------
+Line 4367 (New File): <IMPLEMENTATION-DATA-TYPE-REF DEST="IMPLEMENTATION-DATA-TYPE">/SharedElements/ImplementationDataTypes/None</IMPLEMENTATION-DATA-TYPE-REF>
+-------------------------
+Line 4368 (New File): </DATA-TYPE-MAP>
+-------------------------
+Line 4474 (New File): </IMPLEMENTATION-DATA-TYPE>
+-------------------------
+Line 4475 (New File): <IMPLEMENTATION-DATA-TYPE >
+-------------------------
+Line 4476 (New File): <SHORT-NAME>array3</SHORT-NAME>
+-------------------------
+Line 4477 (New File): <CATEGORY>ARRAY</CATEGORY>
+-------------------------
+Line 4478 (New File): <SUB-ELEMENTS>
+-------------------------
+Line 4479 (New File): <IMPLEMENTATION-DATA-TYPE-ELEMENT >
+-------------------------
+Line 4480 (New File): <SHORT-NAME>SubElement</SHORT-NAME>
+-------------------------
+Line 4481 (New File): <CATEGORY>TYPE_REFERENCE</CATEGORY>
+-------------------------
+Line 4482 (New File): <ARRAY-SIZE>10</ARRAY-SIZE>
+-------------------------
+Line 4483 (New File): <ARRAY-SIZE-SEMANTICS>FIXED-SIZE</ARRAY-SIZE-SEMANTICS>
+-------------------------
+Line 4484 (New File): <SW-DATA-DEF-PROPS>
+-------------------------
+Line 4485 (New File): <SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 4486 (New File): <SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 4487 (New File): <IMPLEMENTATION-DATA-TYPE-REF DEST="IMPLEMENTATION-DATA-TYPE">/AUTOSAR/AUTOSAR_Platform/ImplementationDataTypes/float32</IMPLEMENTATION-DATA-TYPE-REF>
+-------------------------
+Line 4488 (New File): </SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 4489 (New File): </SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 4490 (New File): </SW-DATA-DEF-PROPS>
+-------------------------
+Line 4491 (New File): </IMPLEMENTATION-DATA-TYPE-ELEMENT>
+-------------------------
+Line 4492 (New File): </SUB-ELEMENTS>
+-------------------------
+Line 4493 (New File): </IMPLEMENTATION-DATA-TYPE>
+-------------------------
+Line 4494 (New File): <IMPLEMENTATION-DATA-TYPE >
+-------------------------
+Line 4495 (New File): <SHORT-NAME>array4</SHORT-NAME>
+-------------------------
+Line 4496 (New File): <CATEGORY>ARRAY</CATEGORY>
+-------------------------
+Line 4497 (New File): <SUB-ELEMENTS>
+-------------------------
+Line 4498 (New File): <IMPLEMENTATION-DATA-TYPE-ELEMENT >
+-------------------------
+Line 4499 (New File): <SHORT-NAME>SubElement</SHORT-NAME>
+-------------------------
+Line 4500 (New File): <CATEGORY>TYPE_REFERENCE</CATEGORY>
+-------------------------
+Line 4501 (New File): <ARRAY-SIZE>1000000000</ARRAY-SIZE>
+-------------------------
+Line 4502 (New File): <ARRAY-SIZE-SEMANTICS>VARIABLE-SIZE</ARRAY-SIZE-SEMANTICS>
+-------------------------
+Line 4503 (New File): <SW-DATA-DEF-PROPS>
+-------------------------
+Line 4504 (New File): <SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 4505 (New File): <SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 4506 (New File): <IMPLEMENTATION-DATA-TYPE-REF DEST="IMPLEMENTATION-DATA-TYPE">/SharedElements/ImplementationDataTypes/sint16</IMPLEMENTATION-DATA-TYPE-REF>
+-------------------------
+Line 4507 (New File): </SW-DATA-DEF-PROPS-CONDITIONAL>
+-------------------------
+Line 4508 (New File): </SW-DATA-DEF-PROPS-VARIANTS>
+-------------------------
+Line 4509 (New File): </SW-DATA-DEF-PROPS>
+-------------------------
+Line 4510 (New File): </IMPLEMENTATION-DATA-TYPE-ELEMENT>
+-------------------------
+Line 4511 (New File): </SUB-ELEMENTS>

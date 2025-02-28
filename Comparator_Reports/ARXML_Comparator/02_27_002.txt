@@ -1,0 +1,21 @@
+Line 5004 (New File): </TIMING-EVENT>
+-------------------------
+Line 5005 (New File): <TIMING-EVENT >
+-------------------------
+Line 5006 (New File): <SHORT-NAME>MdMgmt10ms1</SHORT-NAME>
+-------------------------
+Line 5007 (New File): <START-ON-EVENT-REF DEST="RUNNABLE-ENTITY">/SwComponentTypes/ApplSWC/Asw_swc/IB_Asw_swc/Rnbl_MdMgmt1</START-ON-EVENT-REF>
+-------------------------
+Line 5008 (New File): <PERIOD>0.156</PERIOD>
+-------------------------
+Line 5315 (New File): <RUNNABLE-ENTITY >
+-------------------------
+Line 5316 (New File): <SHORT-NAME>Rnbl_MdMgmt1</SHORT-NAME>
+-------------------------
+Line 5317 (New File): <MINIMUM-START-INTERVAL>0</MINIMUM-START-INTERVAL>
+-------------------------
+Line 5318 (New File): <CAN-BE-INVOKED-CONCURRENTLY>false</CAN-BE-INVOKED-CONCURRENTLY>
+-------------------------
+Line 5319 (New File): <SYMBOL>Rnbl_MdMgmt1</SYMBOL>
+-------------------------
+Line 5320 (New File): </RUNNABLE-ENTITY>

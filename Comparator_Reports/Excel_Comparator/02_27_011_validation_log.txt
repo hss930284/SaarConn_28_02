@@ -1,0 +1,20 @@
+Sheet: idt, Cell: A8
+  - Original Value: 
+  - Updated Value: 5.0
+--------------------------------------------------
+Sheet: idt, Cell: B8
+  - Original Value: 
+  - Updated Value: ARRAY_FIXED
+--------------------------------------------------
+Sheet: idt, Cell: C8
+  - Original Value: 
+  - Updated Value: array3
+--------------------------------------------------
+Sheet: idt, Cell: D8
+  - Original Value: 
+  - Updated Value: 10
+--------------------------------------------------
+Sheet: idt, Cell: E8
+  - Original Value: 
+  - Updated Value: float32
+--------------------------------------------------

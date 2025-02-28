@@ -1,0 +1,56 @@
+Sheet: adt_composite, Cell: C1
+  - Original Value: struct1
+  - Updated Value: Parent_struct
+--------------------------------------------------
+Sheet: adt_composite, Cell: B2
+  - Original Value: nan
+  - Updated Value: RECORD
+--------------------------------------------------
+Sheet: adt_composite, Cell: B3
+  - Original Value: nan
+  - Updated Value: RECORD
+--------------------------------------------------
+Sheet: adt_composite, Cell: B4
+  - Original Value: nan
+  - Updated Value: RECORD
+--------------------------------------------------
+Sheet: idt, Cell: C1
+  - Original Value: struct1
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: idt, Cell: D1
+  - Original Value: element1
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: idt, Cell: D2
+  - Original Value: element2
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: idt, Cell: D3
+  - Original Value: element3
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: idt, Cell: D4
+  - Original Value: element4
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: idt, Cell: C5
+  - Original Value: array1
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: idt, Cell: D5
+  - Original Value: 15
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: idt, Cell: C6
+  - Original Value: array2
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: idt, Cell: D6
+  - Original Value: 15
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: idt, Cell: C7
+  - Original Value: primitive1
+  - Updated Value: nan
+--------------------------------------------------

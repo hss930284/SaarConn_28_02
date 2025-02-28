@@ -1,0 +1,4 @@
+Sheet: adt_primitive, Cell: C9
+  - Original Value: nan
+  - Updated Value: BOOLEAN
+--------------------------------------------------

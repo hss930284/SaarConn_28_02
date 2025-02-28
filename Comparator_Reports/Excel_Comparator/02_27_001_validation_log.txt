@@ -1,0 +1,36 @@
+Sheet: adt_primitive, Cell: J2
+  - Original Value: physConstrs
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: adt_primitive, Cell: M2
+  - Original Value: uint8
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: adt_primitive, Cell: J3
+  - Original Value: physConstrs
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: adt_primitive, Cell: K3
+  - Original Value: 0.0
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: adt_primitive, Cell: L3
+  - Original Value: 1.0
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: adt_primitive, Cell: M3
+  - Original Value: uint8
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: adt_primitive, Cell: J5
+  - Original Value: physConstrs
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: adt_primitive, Cell: L5
+  - Original Value: 7.0
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: adt_primitive, Cell: M5
+  - Original Value: uint8
+  - Updated Value: nan
+--------------------------------------------------

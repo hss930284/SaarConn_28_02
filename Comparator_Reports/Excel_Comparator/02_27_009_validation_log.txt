@@ -1,0 +1,52 @@
+Sheet: adt_primitive, Cell: A13
+  - Original Value: 
+  - Updated Value: 5.0
+--------------------------------------------------
+Sheet: adt_primitive, Cell: B13
+  - Original Value: 
+  - Updated Value: ADT_name
+--------------------------------------------------
+Sheet: adt_primitive, Cell: C13
+  - Original Value: 
+  - Updated Value: Value
+--------------------------------------------------
+Sheet: adt_primitive, Cell: D13
+  - Original Value: 
+  - Updated Value: CompName
+--------------------------------------------------
+Sheet: adt_primitive, Cell: E13
+  - Original Value: 
+  - Updated Value: LINEAR
+--------------------------------------------------
+Sheet: adt_primitive, Cell: F13
+  - Original Value: 
+  - Updated Value: 8.0
+--------------------------------------------------
+Sheet: adt_primitive, Cell: G13
+  - Original Value: 
+  - Updated Value: nan
+--------------------------------------------------
+Sheet: adt_primitive, Cell: H13
+  - Original Value: 
+  - Updated Value: NoUnit
+--------------------------------------------------
+Sheet: adt_primitive, Cell: I13
+  - Original Value: 
+  - Updated Value: DataConstnewName
+--------------------------------------------------
+Sheet: adt_primitive, Cell: J13
+  - Original Value: 
+  - Updated Value: physConstrs
+--------------------------------------------------
+Sheet: adt_primitive, Cell: K13
+  - Original Value: 
+  - Updated Value: 0.0
+--------------------------------------------------
+Sheet: adt_primitive, Cell: L13
+  - Original Value: 
+  - Updated Value: 10.0
+--------------------------------------------------
+Sheet: adt_primitive, Cell: M13
+  - Original Value: 
+  - Updated Value: uint8
+--------------------------------------------------

@@ -1,0 +1,24 @@
+Sheet: adt_composite, Cell: A7
+  - Original Value: 
+  - Updated Value: 3.0
+--------------------------------------------------
+Sheet: adt_composite, Cell: B7
+  - Original Value: 
+  - Updated Value: ARRAY
+--------------------------------------------------
+Sheet: adt_composite, Cell: C7
+  - Original Value: 
+  - Updated Value: APDT_name
+--------------------------------------------------
+Sheet: adt_composite, Cell: D7
+  - Original Value: 
+  - Updated Value: 100
+--------------------------------------------------
+Sheet: adt_composite, Cell: E7
+  - Original Value: 
+  - Updated Value: APDT
+--------------------------------------------------
+Sheet: adt_composite, Cell: F7
+  - Original Value: 
+  - Updated Value: sint16
+--------------------------------------------------

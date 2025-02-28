@@ -1,0 +1,88 @@
+Sheet: ib_data, Cell: A9
+  - Original Value: 
+  - Updated Value: 9
+--------------------------------------------------
+Sheet: ib_data, Cell: B9
+  - Original Value: 
+  - Updated Value: ArTypedPerInstanceMemory
+--------------------------------------------------
+Sheet: ib_data, Cell: C9
+  - Original Value: 
+  - Updated Value: PIP_test8
+--------------------------------------------------
+Sheet: ib_data, Cell: D9
+  - Original Value: 
+  - Updated Value: float32
+--------------------------------------------------
+Sheet: ib_data, Cell: E9
+  - Original Value: 
+  - Updated Value: 0
+--------------------------------------------------
+Sheet: ib_data, Cell: F9
+  - Original Value: 
+  - Updated Value: Rnbl_MdMgmt
+--------------------------------------------------
+Sheet: ib_data, Cell: G9
+  - Original Value: 
+  - Updated Value: READ
+--------------------------------------------------
+Sheet: ib_data, Cell: H9
+  - Original Value: 
+  - Updated Value: QUEUED
+--------------------------------------------------
+Sheet: ib_data, Cell: I9
+  - Original Value: 
+  - Updated Value: sint16
+--------------------------------------------------
+Sheet: adt_primitive, Cell: A13
+  - Original Value: 
+  - Updated Value: 5.0
+--------------------------------------------------
+Sheet: adt_primitive, Cell: B13
+  - Original Value: 
+  - Updated Value: float32
+--------------------------------------------------
+Sheet: adt_primitive, Cell: C13
+  - Original Value: 
+  - Updated Value: Value
+--------------------------------------------------
+Sheet: adt_primitive, Cell: D13
+  - Original Value: 
+  - Updated Value: newCompNameSWC
+--------------------------------------------------
+Sheet: adt_primitive, Cell: E13
+  - Original Value: 
+  - Updated Value: TEXTTABLE
+--------------------------------------------------
+Sheet: adt_primitive, Cell: F13
+  - Original Value: 
+  - Updated Value: 8.0
+--------------------------------------------------
+Sheet: adt_primitive, Cell: G13
+  - Original Value: 
+  - Updated Value: ENUM_newCompNameSWC
+--------------------------------------------------
+Sheet: adt_primitive, Cell: H13
+  - Original Value: 
+  - Updated Value: NoUnit
+--------------------------------------------------
+Sheet: adt_primitive, Cell: I13
+  - Original Value: 
+  - Updated Value: DataConst_newCompNameSWC
+--------------------------------------------------
+Sheet: adt_primitive, Cell: J13
+  - Original Value: 
+  - Updated Value: physConstrs
+--------------------------------------------------
+Sheet: adt_primitive, Cell: K13
+  - Original Value: 
+  - Updated Value: 0.0
+--------------------------------------------------
+Sheet: adt_primitive, Cell: L13
+  - Original Value: 
+  - Updated Value: 10.0
+--------------------------------------------------
+Sheet: adt_primitive, Cell: M13
+  - Original Value: 
+  - Updated Value: float32
+--------------------------------------------------
