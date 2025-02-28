@@ -1,0 +1,29 @@
+1.
+array in adt_composite sheet
+ 
+Nomenclature >> done for c and d coulmn  old rule >> in 	"adt_composite" column "C" and  column "D", , except for numbers in D column
+ 
+											New Rule >> in 	"adt_composite" column "C" and  column "D", , except for numbers in D column if corresponding B value is ARRAY or ARRAY_FIXED or ARRAY_VARIABLE
+														handle combinely for IDT as well, i.e. modify the section in validator.py from line no. 269
+ 
+mapped Impl data type coulmn i.e. coulmn M should have the value from actual impl data type from enum_list sheet (L3 to L21)
+	or B column value from adt_primitive sheet
+	or custom idt from idt sheet which must be primitive type (name should come from C column and its corresponding type i.e. B column value should be primitive)
+if B column value is ARRAY then the value of corresponding E column value should be either FIXED or VARIABLE
+ 
+2.
+record in adt_composite sheet
+ 
+Nomenclature >> done for c and d coulmn  old rule >> in 	"adt_composite" column "C" and  column "D", , except for numbers in D column
+ 
+									New Rule(covered above) >> in 	"adt_composite" column "C" and  column "D", , except for numbers in D column if corresponding B value is ARRAY  or ARRAY_FIXED or ARRAY_VARIABLE 
+														handle combinely for IDT as well, i.e. modify the section in validator.py from line no. 269
+
+mapped Impl data type coulmn i.e. coulmn M should have the value from actual impl data type from enum_list sheet (L3 to L21)
+ 
+APDT is from B column value of adt_primitive sheet
+ARDT is from B column value of adt_composite sheet other than current
+AADT is from B column value of adt_composite sheet
+IDT is from either the value from actual impl data type from enum_list sheet (L3 to L21) or custom idt from idt sheet which must be primitive type (name should come from C column)
+ 
+if B column value is Record then the value of corresponding E column value should be from this {APDT, ARDT, AADT, IDT}
