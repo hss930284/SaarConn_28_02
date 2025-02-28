@@ -52,3 +52,17 @@ merge is ALLOWABLE to following column only
 "adt_primitive": B,C,D,E,H,I,J,K,L,M (for all columns : only if coresponding E column value is except identical)
 "adt_composite": B,C(if Record)
 "idt": B,C(if Record)
+
+Data type refernce rule
+disclaimer : please check main file whether we ar reading/using I column value of ib_data sheet anywhere  and if used plese ping me
+ 
+implement this :
+"ib_data": I
+"ports": H
+ 
+I and H column value of ib_data and ports sheet respectively should be either from
+ 
+	B column value of adt_primitive
+	or C column value of adt_composite
+	or C column value of idt sheet
+	or the values from L3 to L21 from enum_list sheet
