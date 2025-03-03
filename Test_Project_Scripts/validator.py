@@ -246,68 +246,64 @@ def validate_excel(file_path):
             . the name can start with only alphabetical which can be either capital or small letters
         """
         
+        # ✅ Define the sheets and columns to check naming conventions
         naming_sheets = {
             "swc_info": ["C", "D", "E", "H", "I", "K"],
             "ib_data": ["C"],
             "ports": ["C", "E", "F", "G"],
             "adt_primitive": ["B", "D", "G", "I"],
-            "adt_composite": ["B", "C", "D"],  # Added Column B for condition check
-            "idt": ["B", "C", "D"]  # Added Column B for condition check
+            "adt_composite": ["B", "C", "D"],  # Includes Column B for ARRAY check
+            "idt": ["B", "C", "D"]  # Ensures "idt" is checked properly
         }
         
+        # Ensure "idt" sheet is detected
+        if "idt" not in wb.sheetnames:
+            print("⚠️ Warning: 'idt' sheet not found in workbook!")
+        else:
+            print("✅ 'idt' sheet detected. Processing...")
+        
+        # ✅ Iterate through sheets and check naming rules
         for sheet_name, columns in naming_sheets.items():
             if sheet_name not in wb.sheetnames:
-                continue  # Skip if sheet doesn't exist
+                continue  # Skip if the sheet does not exist
+        
             sheet = wb[sheet_name]
         
-            for row_idx, row in enumerate(sheet.iter_rows(
-                    min_row=2, values_only=True), start=2):
-                
+            for row_idx, row in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
                 data = {col: row[ord(col.upper()) - 65] if row else "" for col in columns}
-        
-                cell_ref_d = f"D{row_idx}"  # Column D reference
-        
-                # Additional Rule: If in "ports" sheet, Column D is "TriggerInterface", then Column G must be numeric
-                if sheet_name == "ports" and data.get("D", "") == "TriggerInterface":
-                    if not str(data.get("G", "")).isdigit():
-                        errors["Critical"].append(
-                            f"[{sheet_name}] Column G must be numeric when Column D is 'TriggerInterface' at G{row_idx}: {data.get('G')}"
-                        )
-        
-                # General Naming Convention Check for all other columns
+            
+                # Handle both adt_composite and idt together
+                if sheet_name in ["adt_composite", "idt"]:
+                    column_b_value = data.get("B", "")
+                    column_d_value = data.get("D", "")
+                    if column_b_value in ["ARRAY", "ARRAY_FIXED", "ARRAY_VARIABLE"]:
+                        if not str(column_d_value).isdigit():
+                            errors["Critical"].append(
+                                f"[{sheet_name}] Column D must be numeric when Column B is '{column_b_value}' at D{row_idx}: {column_d_value}"
+                            )
+                    elif column_b_value == "RECORD":
+                        if str(column_d_value).isdigit():
+                            errors["Critical"].append(
+                                f"[{sheet_name}] Column D must NOT be numeric when Column B is 'RECORD' at D{row_idx}: {column_d_value}"
+                            )
+                elif sheet_name == "ports":
+                    column_g_value = data.get("G", "")
+
+                    if column_g_value == "TriggerInterface":
+                        if not str(column_g_value).isdigit():
+                            errors["Critical"].append(
+                                f"[{sheet_name}] Column G must be numeric when Column D is 'TriggerInterface' at G{row_idx}: {column_g_value}"
+                            )
+                # General Naming Convention Check
                 for col in columns:
                     if col == "D" and sheet_name in ["adt_composite", "idt"]:
-                        column_b_value = data.get("B", "")
-        
-                        # Define valid values for column B that require column D to be numeric
-                        numeric_required_b_values = {
-                            "adt_composite": ["ARRAY"],
-                            "idt": ["ARRAY_FIXED", "ARRAY_VARIABLE"]
-                        }
-        
-                        numeric_not_allowed_b_values = {
-                            "adt_composite" : ["RECORD"],
-                            "idt" : ["RECORD"]
-                        }
-        
-                        # Check if column D should be numeric
-                        if column_b_value in numeric_required_b_values.get(sheet_name, []):
-                            if not str(data.get("D", "")).isdigit():
-                                errors["Critical"].append(
-                                    f"[{sheet_name}] Column D must be numeric when Column B is '{column_b_value}' at D{row_idx}: {data.get('D')}"
-                                )
-                    
-                        # Check if column D should NOT be numeric
-                        if column_b_value in numeric_not_allowed_b_values.get(sheet_name, []):
-                            if str(data.get("D", "")).isdigit():
-                                errors["Critical"].append(
-                                    f"[{sheet_name}] Column D must NOT be numeric when Column B is '{column_b_value}' at D{row_idx}: {data.get('D')}"
-                                )
+                        continue 
+                    if col == "G" and sheet_name in ["ports"]:
                         continue
-        
+            
                     cell_ref = f"{col}{row_idx}"
                     name = data.get(col, "")
-        
+            
                     if not re.match(r"^[A-Za-z][A-Za-z0-9_]*$", str(name)):
                         errors["Critical"].append(f"[{sheet_name}] Invalid name format at {cell_ref}: {name}")
 
@@ -655,14 +651,13 @@ def validate_excel(file_path):
             adt_primitive_sheet = wb["adt_primitive"]
             adt_primitive_b_values = {row[0] for row in adt_primitive_sheet.iter_rows(min_row=2, values_only=True) if row[0]}
         
-        # Extract column C values from idt for all and where B = "PRIMITIVE" 
+        # Extract column C values from idt where column B = "PRIMITIVE"
         idt_primitive_c_values = set()
         idt_c_values = set()
         if "idt" in wb.sheetnames:
             idt_sheet = wb["idt"]
             idt_primitive_c_values = {row[1] for row in idt_sheet.iter_rows(min_row=2, values_only=True) if row[0] == "PRIMITIVE"}
             idt_c_values = {row[1] for row in idt_sheet.iter_rows(min_row=2, values_only=True)}
-        #Extract column C values from idt
         
         # Extract column C values from adt_composite for "RECORD" and "ARRAY"
         adt_composite_record_c_values = set()
@@ -677,10 +672,10 @@ def validate_excel(file_path):
         
         for sheet_name, columns in naming_sheets.items():
             if sheet_name not in wb.sheetnames:
-                continue  # Skip if sheet doesn't exist
+                continue
         
             sheet = wb[sheet_name]
-            merged_cells = get_merged_cells(sheet)  # Get merged cells info
+            merged_cells = get_merged_cells(sheet)
         
             for row_idx, row in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
                 data = {col: row[ord(col.upper()) - 65] if row else "" for col in columns}
@@ -689,64 +684,70 @@ def validate_excel(file_path):
                 for merged_start, merged_group in merged_cells.items():
                     merged_col, merged_row = re.match(r"([A-Z]+)(\d+)", merged_start).groups()
                     if merged_col == "B" and str(row_idx) in [merged_row] + [cell[1:] for cell in merged_group]:
-                        data["B"] = sheet[merged_start].value  # Assign merged cell value
+                        data["B"] = sheet[merged_start].value
         
-                # Rule for "ARRAY" in column B
+                # RULE - 8 Implementation
                 if data.get("B") == "ARRAY":
-                    cell_ref_e = f"E{row_idx}"
-                    cell_ref_f = f"F{row_idx}"
-        
                     if data.get("E") not in ["FIXED", "VARIABLE"]:
-                        errors["Critical"].append(f"[{sheet_name}] Column E must be 'FIXED' or 'VARIABLE' when Column B is ARRAY at {cell_ref_e}: {data.get('E')}")
-        
+                        errors["Critical"].append(f"[{sheet_name}] Column E must be 'FIXED' or 'VARIABLE' at E{row_idx}: {data.get('E')}")
                     if data.get("F") not in enum_list and data.get("F") not in adt_primitive_b_values and data.get("F") not in idt_primitive_c_values:
-                        errors["Critical"].append(f"[{sheet_name}] Column F must be from enum_list, adt_primitive (Column B), or idt (Column C when B='PRIMITIVE') at {cell_ref_f}: {data.get('F')}")
+                        errors["Critical"].append(f"[{sheet_name}] Column F must be from enum_list, adt_primitive (B column), or idt (C column when B='PRIMITIVE') at F{row_idx}: {data.get('F')}")
         
-                # Rule for "RECORD" in column B
-                if data.get("B") == "RECORD":
-                    cell_ref_e = f"E{row_idx}"
-                    cell_ref_f = f"F{row_idx}"
-        
+                if sheet_name == "adt_composite" and data.get("B") == "RECORD":
                     if data.get("E") not in ["APDT", "ARDT", "AADT", "IDT"]:
-                        errors["Critical"].append(f"[{sheet_name}] Column E must be 'APDT', 'ARDT', 'AADT', or 'IDT' when Column B is RECORD at {cell_ref_e}: {data.get('E')}")
-        
-                    # Handling Column F values based on Column E
-                    if data.get("E") == "APDT":
-                        if data.get("F") not in adt_primitive_b_values:
-                            errors["Critical"].append(
-                                f"[{sheet_name}] Column F must be from Column B of adt_primitive when Column E is APDT at {cell_ref_f}: {data.get('F')}"
-                            )
-        
-                    elif data.get("E") == "ARDT":
+                        errors["Critical"].append(f"[{sheet_name}] Column E must be 'APDT', 'ARDT', 'AADT', or 'IDT' at E{row_idx}: {data.get('E')}")
+                    
+                    if data.get("E") == "APDT" and data.get("F") not in adt_primitive_b_values:
+                        errors["Critical"].append(f"[{sheet_name}] Column F must be from adt_primitive (B column) when Column E is APDT at F{row_idx}: {data.get('F')}")
+                    
+                    if data.get("E") == "ARDT":
                         valid_ardt_values = adt_composite_record_c_values - {data.get("F")}
                         if data.get("F") not in valid_ardt_values:
-                            errors["Critical"].append(
-                                f"[{sheet_name}] Column F must be from Column C of adt_composite where Column B is RECORD, excluding itself at {cell_ref_f}: {data.get('F')}"
-                            )
-        
-                    elif data.get("E") == "AADT":
+                            errors["Critical"].append(f"[{sheet_name}] Column F must be from adt_composite (C column where B is RECORD) when Column E is ARDT, excluding itself at F{row_idx}: {data.get('F')}")
+                    
+                    if data.get("E") == "AADT":
                         valid_aadt_values = adt_composite_array_c_values - {data.get("F")}
                         if data.get("F") not in valid_aadt_values:
-                            errors["Critical"].append(
-                                f"[{sheet_name}] Column F must be from Column C of adt_composite where Column B is ARRAY, excluding itself at {cell_ref_f}: {data.get('F')}"
-                            )
-        
-                    elif data.get("E") == "IDT":
+                            errors["Critical"].append(f"[{sheet_name}] Column F must be from adt_composite (C column where B is ARRAY) Column E is AADT, excluding itself at F{row_idx}: {data.get('F')}")
+                    
+                    if data.get("E") == "IDT":
                         valid_idt_values = enum_list + list(idt_c_values - {data.get("F")})
                         if data.get("F") not in valid_idt_values:
-                            errors["Critical"].append(
-                                f"[{sheet_name}] Column F must be from enum_list or Column C of idt, excluding itself at {cell_ref_f}: {data.get('F')}"
-                            )
+                            errors["Critical"].append(f"[{sheet_name}] Column F must be from enum_list or idt (C column), excluding itself at F{row_idx}: {data.get('F')}")
+                
+        # Print Errors if any
+        if errors["Critical"]:
+            print("\n".join(errors["Critical"]))
+        else:
+            print("✅ Rule 8 Validation Passed! No errors found.")
 
         # ✅ Runnable Access Rule for "ports" sheet (G column validation)
+        """
+            G column value should be {dra, drpa, drpv) when corresponding D column value either SenderReceiverInterface or NvDataInterface and B column value ReceiverPort
+            G column value should be {dsp , dwa) when corresponding D column value either SenderReceiverInterface or NvDataInterface and B column value SenderPort
+            G column value must be empty when corresponding D column value ParameterInterface
+        """
         if "ports" in wb.sheetnames:
             sheet = wb["ports"]
         
-            for row_idx, row in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
-                column_b_value = row[1]  # B column
-                column_d_value = row[3]  # D column
-                column_g_value = str(row[6]).strip().lower() if row[6] else ""  # G column
+            # Step 1: Store merged cell values properly
+            merged_values = {}
+            for merged_range in sheet.merged_cells.ranges:
+                min_col, min_row, max_col, max_row = merged_range.bounds
+                first_cell_value = sheet.cell(row=min_row, column=min_col).value  # Get the first cell's value
+                
+                # Assign this value to all merged cells
+                for row in range(min_row, max_row + 1):
+                    for col in range(min_col, max_col + 1):
+                        merged_values[(row, col)] = first_cell_value
         
+            # Step 2: Iterate over rows and validate rules
+            for row_idx, row in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
+                column_b_value = row[1]  # Column B (Port Type)
+                column_d_value = row[3] if row[3] else merged_values.get((row_idx, 4), "")  # Handle merged cells in Column D
+                column_g_value = str(row[6]).strip().lower() if row[6] else ""  # Column G (Lowercase and stripped)
+        
+                # Validation logic
                 if column_d_value in ["SenderReceiverInterface", "NvDataInterface"]:
                     if column_b_value == "ReceiverPort" and column_g_value not in {"dra", "drpa", "drpv"}:
                         errors["Critical"].append(
@@ -761,6 +762,10 @@ def validate_excel(file_path):
                     errors["Critical"].append(
                         f"[ports] Column G must be empty when Column D is 'ParameterInterface' at G{row_idx}: {column_g_value}"
                     )
+        
+            # Step 3: Print errors
+            for error in errors["Critical"]:
+                print(error)
 
 
         # ✅ Merge Rule Validation
@@ -770,24 +775,38 @@ def validate_excel(file_path):
             "adt_primitive": ["B", "C", "D", "E", "H", "I", "J", "K", "L", "M"],
             "adt_composite": ["B", "C"],
             "idt": ["B", "C"]
-        }
+            }
         
         for sheet_name, columns in merge_rules.items():
             if sheet_name not in wb.sheetnames:
                 continue  # Skip if sheet doesn't exist
             sheet = wb[sheet_name]
         
-            for col in columns:
-                for merged_cell in sheet.merged_cells.ranges:
-                    if col in merged_cell.coord:
-                        start_row, end_row = merged_cell.min_row, merged_cell.max_row
-                        if sheet_name == "adt_primitive" and sheet[f"E{start_row}"].value == "identical":
-                            continue  # Skip check if E column value is 'identical'
-                        if sheet_name in ["adt_composite", "idt"] and sheet[f"C{start_row}"].value != "Record":
-                            continue  # Skip check if C column value is NOT "Record"
-                        errors["Warning"].append(
-                            f"[{sheet_name}] Merge found in {col}{start_row}:{col}{end_row}, which may not be allowed"
-                        )
+            for merged_cell in sheet.merged_cells.ranges:
+                start_row, end_row = merged_cell.min_row, merged_cell.max_row
+                start_col, end_col = merged_cell.min_col, merged_cell.max_col
+        
+                # Convert column indices to column letters (to compare against merge_rules)
+                start_col_letter = chr(64 + start_col)
+                end_col_letter = chr(64 + end_col)
+        
+                # Check if any merged columns are outside the allowed ones
+                if not any(col in columns for col in [start_col_letter, end_col_letter]):
+                    errors["Warning"].append(
+                        f"[{sheet_name}] Merge found in {start_col_letter}{start_row}:{end_col_letter}{end_row}, which is not allowed"
+                    )
+                else:
+                    # Additional check based on special conditions (e.g., for "adt_primitive" and "identical" values)
+                    if sheet_name == "adt_primitive" and sheet[f"E{start_row}"].value == "identical":
+                        continue  # Skip if E column value is 'identical'
+        
+                    if sheet_name in ["adt_composite", "idt"] and sheet[f"C{start_row}"].value != "Record":
+                        continue  # Skip if C column value is NOT "Record"
+                        
+                    # Append warning if merge is found in allowed columns but needs additional checks
+                    errors["Warning"].append(
+                        f"[{sheet_name}] Merge found in {start_col_letter}{start_row}:{end_col_letter}{end_row}, which may not be allowed"
+                    )
 
         # ✅ Data Type Reference Rule for "ib_data" (I column) & "ports" (H column)
         
