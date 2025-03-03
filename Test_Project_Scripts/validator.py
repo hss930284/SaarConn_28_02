@@ -230,6 +230,22 @@ def validate_excel(file_path):
                         errors["Critical"].append(f"[idt] Column D must be empty at {cell_ref} when Column B is 'PRIMITIVE'")
 
         ### 🟢 Naming Convention Rule ('excel_rule_2') ###
+
+        """
+        excel_rule_2 : Naming convention
+            . this rule is applicable to following user given values             
+                in "swc_info" column "C",  column "D", column "E", column "H", column "I", and column "K"
+                in "ib_data" column "C"
+                in "ports" column "C",  column "E", column "F", and column "G"
+                in "adt_primitive" column "B",  column "D", column "G", and column "I"
+                in "adt_composite" column "C" and  column "D", , except for numbers in D column if corresponding B value is ARRAY or ARRAY_FIXED or ARRAY_VARIABLE
+                    handle combinely for IDT as well
+                in "idt" column "C",  and column "D" , , except for numbers in D column
+            . first row of every sheet will be the header so the data for validation should be consider from second row of each above mentioned excel sheets.
+            . the rule is 'the name can have small and capital alphabetical letters and numbers from 0 to 9 and no special characters except _ '            
+            . the name can start with only alphabetical which can be either capital or small letters
+        """
+        
         naming_sheets = {
             "swc_info": ["C", "D", "E", "H", "I", "K"],
             "ib_data": ["C"],
@@ -716,6 +732,104 @@ def validate_excel(file_path):
                             errors["Critical"].append(
                                 f"[{sheet_name}] Column F must be from enum_list or Column C of idt, excluding itself at {cell_ref_f}: {data.get('F')}"
                             )
+
+        # ✅ Runnable Access Rule for "ports" sheet (G column validation)
+        if "ports" in wb.sheetnames:
+            sheet = wb["ports"]
+        
+            for row_idx, row in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
+                column_b_value = row[1]  # B column
+                column_d_value = row[3]  # D column
+                column_g_value = str(row[6]).strip().lower() if row[6] else ""  # G column
+        
+                if column_d_value in ["SenderReceiverInterface", "NvDataInterface"]:
+                    if column_b_value == "ReceiverPort" and column_g_value not in {"dra", "drpa", "drpv"}:
+                        errors["Critical"].append(
+                            f"[ports] Column G must be one of {{dra, drpa, drpv}} when Column D is '{column_d_value}' and Column B is 'ReceiverPort' at G{row_idx}: {column_g_value}"
+                        )
+                    if column_b_value == "SenderPort" and column_g_value not in {"dsp", "dwa"}:
+                        errors["Critical"].append(
+                            f"[ports] Column G must be one of {{dsp, dwa}} when Column D is '{column_d_value}' and Column B is 'SenderPort' at G{row_idx}: {column_g_value}"
+                        )
+        
+                if column_d_value == "ParameterInterface" and column_g_value:
+                    errors["Critical"].append(
+                        f"[ports] Column G must be empty when Column D is 'ParameterInterface' at G{row_idx}: {column_g_value}"
+                    )
+
+
+        # ✅ Merge Rule Validation
+        merge_rules = {
+            "swc_info": ["B", "C", "D", "E", "F", "G"],
+            "ports": ["B", "C", "D", "E", "F"],
+            "adt_primitive": ["B", "C", "D", "E", "H", "I", "J", "K", "L", "M"],
+            "adt_composite": ["B", "C"],
+            "idt": ["B", "C"]
+        }
+        
+        for sheet_name, columns in merge_rules.items():
+            if sheet_name not in wb.sheetnames:
+                continue  # Skip if sheet doesn't exist
+            sheet = wb[sheet_name]
+        
+            for col in columns:
+                for merged_cell in sheet.merged_cells.ranges:
+                    if col in merged_cell.coord:
+                        start_row, end_row = merged_cell.min_row, merged_cell.max_row
+                        if sheet_name == "adt_primitive" and sheet[f"E{start_row}"].value == "identical":
+                            continue  # Skip check if E column value is 'identical'
+                        if sheet_name in ["adt_composite", "idt"] and sheet[f"C{start_row}"].value != "Record":
+                            continue  # Skip check if C column value is NOT "Record"
+                        errors["Warning"].append(
+                            f"[{sheet_name}] Merge found in {col}{start_row}:{col}{end_row}, which may not be allowed"
+                        )
+
+        # ✅ Data Type Reference Rule for "ib_data" (I column) & "ports" (H column)
+        
+        # Collect reference values from adt_primitive, adt_composite, idt, and enum_list
+        valid_values = set()
+        
+        # Extract B column values from adt_primitive
+        if "adt_primitive" in wb.sheetnames:
+            sheet = wb["adt_primitive"]
+            valid_values.update(cell.value for cell in sheet["B"][1:] if cell.value)  # Skip header
+        
+        # Extract C column values from adt_composite
+        if "adt_composite" in wb.sheetnames:
+            sheet = wb["adt_composite"]
+            valid_values.update(cell.value for cell in sheet["C"][1:] if cell.value)
+        
+        # Extract C column values from idt
+        if "idt" in wb.sheetnames:
+            sheet = wb["idt"]
+            valid_values.update(cell.value for cell in sheet["C"][1:] if cell.value)
+        
+        # Extract L3 to L21 values from enum_list
+        if "enum_list" in wb.sheetnames:
+            sheet = wb["enum_list"]
+            for row in sheet.iter_rows(min_row=3, max_row=21, min_col=12, max_col=12, values_only=True):
+                if row[0]:
+                    valid_values.add(row[0])
+        
+        # Validate "I" column in "ib_data"
+        if "ib_data" in wb.sheetnames:
+            sheet = wb["ib_data"]
+            for row_idx, row in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
+                column_i_value = row[8]  # I column (Index 8)
+                if column_i_value and column_i_value not in valid_values:
+                    errors["Critical"].append(
+                        f"[ib_data] Invalid reference in Column I at I{row_idx}: {column_i_value}"
+                    )
+        
+        # Validate "H" column in "ports"
+        if "ports" in wb.sheetnames:
+            sheet = wb["ports"]
+            for row_idx, row in enumerate(sheet.iter_rows(min_row=2, values_only=True), start=2):
+                column_h_value = row[7]  # H column (Index 7)
+                if column_h_value and column_h_value not in valid_values:
+                    errors["Critical"].append(
+                        f"[ports] Invalid reference in Column H at H{row_idx}: {column_h_value}"
+                    )
 
     except Exception as e:
         errors["Critical"].append(f"Error reading Excel file: {str(e)}")
