@@ -631,6 +631,11 @@ def validate_excel(file_path):
                             or column C in sheetname="idt" if corresponding column B has value "PRIMITIVE"
                     column B == "Record":
                         1. then in corresponding column E only ["APDT", "ARDT", "AADT", "IDT"] allowed
+                        2. in column F, value must comes from either of them
+                            APDT ( F column value should be from B column value of adt_primitive sheet)
+                            or ARDT ( F column value should be from C column value of adt_composite sheet other than current which has corresponding B column value is Record )
+                            or AADT (F column value should be from C column value of adt_composite sheet which has corresponding B column value is Array)
+                            or IDT (F column value should be either from actual impl data type which are from enum_list sheet from L3 to L21 or custom idt from idt sheet which must other than current Record name (name should come from C column))
         """
         naming_sheets = {
             "adt_composite": ["B", "C", "D", "E", "F"],  # Ensure required columns are present
