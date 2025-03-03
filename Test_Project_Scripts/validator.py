@@ -230,67 +230,57 @@ def validate_excel(file_path):
                         errors["Critical"].append(f"[idt] Column D must be empty at {cell_ref} when Column B is 'PRIMITIVE'")
 
         ### 🟢 Naming Convention Rule ('excel_rule_2') ###
-
-        """
-        excel_rule_2 : Naming convention
-            . this rule is applicable to following user given values             
-                in "swc_info" column "C",  column "D", column "E", column "H", column "I", and column "K"
-                in "ib_data" column "C"
-                in "ports" column "C",  column "E", column "F", and column "G"
-                in "adt_primitive" column "B",  column "D", column "G", and column "I"
-                in "adt_composite" column "C" and  column "D", , except for numbers in D column if corresponding B value is ARRAY or ARRAY_FIXED or ARRAY_VARIABLE
-                     handle combinely for IDT as well
-                in "idt" column "C",  and column "D" , , except for numbers in D column
-            . first row of every sheet will be the header so the data for validation should be consider from second row of each above mentioned excel sheets.
-            . the rule is 'the name can have small and capital alphabetical letters and numbers from 0 to 9 and no special characters except _ '            
-            . the name can start with only alphabetical which can be either capital or small letters
-        """
- 
         naming_sheets = {
-        "swc_info": ["C", "D", "E", "H", "I", "K"],
-        "ib_data": ["C"],
-        "ports": ["C", "E", "F", "G"],
-        "adt_primitive": ["B", "D", "G", "I"],
-        "adt_composite": ["B", "C", "D"],  # Added Column B for condition check
-        "idt": ["B", "C", "D"]  # Added Column B for condition check
+            "swc_info": ["C", "D", "E", "H", "I", "K"],
+            "ib_data": ["C"],
+            "ports": ["C", "E", "F", "G"],
+            "adt_primitive": ["B", "D", "G", "I"],
+            "adt_composite": ["B", "C", "D"],  # Added Column B for condition check
+            "idt": ["B", "C", "D"]  # Added Column B for condition check
         }
- 
+        
         for sheet_name, columns in naming_sheets.items():
             if sheet_name not in wb.sheetnames:
                 continue  # Skip if sheet doesn't exist
             sheet = wb[sheet_name]
- 
+        
             for row_idx, row in enumerate(sheet.iter_rows(
                     min_row=2, values_only=True), start=2):
                 
                 data = {col: row[ord(col.upper()) - 65] if row else "" for col in columns}
- 
+        
                 cell_ref_d = f"D{row_idx}"  # Column D reference
- 
-                
+        
+                # Additional Rule: If in "ports" sheet, Column D is "TriggerInterface", then Column G must be numeric
+                if sheet_name == "ports" and data.get("D", "") == "TriggerInterface":
+                    if not str(data.get("G", "")).isdigit():
+                        errors["Critical"].append(
+                            f"[{sheet_name}] Column G must be numeric when Column D is 'TriggerInterface' at G{row_idx}: {data.get('G')}"
+                        )
+        
                 # General Naming Convention Check for all other columns
                 for col in columns:
                     if col == "D" and sheet_name in ["adt_composite", "idt"]:
                         column_b_value = data.get("B", "")
- 
+        
                         # Define valid values for column B that require column D to be numeric
                         numeric_required_b_values = {
                             "adt_composite": ["ARRAY"],
                             "idt": ["ARRAY_FIXED", "ARRAY_VARIABLE"]
                         }
-
+        
                         numeric_not_allowed_b_values = {
                             "adt_composite" : ["RECORD"],
                             "idt" : ["RECORD"]
                         }
- 
-                        #   Check if column D should be numeric
+        
+                        # Check if column D should be numeric
                         if column_b_value in numeric_required_b_values.get(sheet_name, []):
                             if not str(data.get("D", "")).isdigit():
                                 errors["Critical"].append(
                                     f"[{sheet_name}] Column D must be numeric when Column B is '{column_b_value}' at D{row_idx}: {data.get('D')}"
                                 )
-                
+                    
                         # Check if column D should NOT be numeric
                         if column_b_value in numeric_not_allowed_b_values.get(sheet_name, []):
                             if str(data.get("D", "")).isdigit():
@@ -298,10 +288,10 @@ def validate_excel(file_path):
                                     f"[{sheet_name}] Column D must NOT be numeric when Column B is '{column_b_value}' at D{row_idx}: {data.get('D')}"
                                 )
                         continue
- 
+        
                     cell_ref = f"{col}{row_idx}"
                     name = data.get(col, "")
- 
+        
                     if not re.match(r"^[A-Za-z][A-Za-z0-9_]*$", str(name)):
                         errors["Critical"].append(f"[{sheet_name}] Invalid name format at {cell_ref}: {name}")
 
